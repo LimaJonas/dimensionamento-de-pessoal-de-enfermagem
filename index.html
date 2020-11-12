@@ -14,8 +14,8 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">Dimensionamento de Pessoal de Enfermagem</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">RDPE</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -31,50 +31,77 @@
         </div>
     </nav>
 </header>        
-<section class="container-fluid">
-    <h4>Calculos (Use ponto (.) no lugar de virgula (,) </h4>
-    <hr>
-        <form name="km">
-        <b>KM</b>: (
-        <input type="text" name="dias_semana" placeholder="Dias da semana" required/> /
-        <input type="text" name="chs" placeholder="Carga Horaria Semanal" required/>
-        ) X (
-        1 +
-        <input type="text" name="ist" placeholder="IST" required/> %
-        )
-        <button type="button" class="btn btn-primary" onclick="calculakm()">Calcular</button>
-        <input type="text" name="resultado_km" disabled>
-        </form>
-        
-        <hr>
-        
-        <form name="qp">
-        <b>QP</b>: 
-        <input type="text" name="km" placeholder="KM" required> X
-        (
-        <input type="text" name="num_pacientes" placeholder="Num de Pacientes" required />
-        X
-        <input type="text" name="the" placeholder="THE" required />
-        )
-        <button type="button" class="btn btn-primary" onclick="calculaqp()">Calcular</button>
-        <input type="text" name="resultado_qp" disabled>
-    </form>
-    <hr>
+<section class="container mt-2" >
+<div class="col-sm-12" style="text-align: center">
+    <h5 >Calculos</h5>
+     <i>(Use ponto (.) no lugar de virgula (,)</i>
+</div>
+<hr>
+<div class="col-sm-12">
+<!-- Calculo KM -->
+<form name="km">
+<p>
+    <b>Calculo do KM</b><br>
+    KM = (Dias da semana / Carga Horárias) x (1 + IST)     
+</p>
+<div class="form-group">
+    <label for="dias_semana">Dias da semana: </label>
+    <input type="number" name="dias_semana" class="form-control" placeholder="Ex: 7" required/>
+</div>
+<div class="form-group">
+    <label for="chs">Carga Horária Semanal: </label>
+    <input type="number" name="chs" class="form-control" placeholder="Ex: 30" required/>
+</div>
+<div class="form-group">
+    <label for="ist">IST(%): </label>
+    <input type="number" name="ist" class="form-control" placeholder="Ex: 15" required/>
+</div>
+    <button type="button" class="btn btn-primary btn-block h-100" onclick="calculakm()">Calcular</button>
+<div class="form-group mt-2">
+    <label for="resultado_km">Resultado:</label>
+    <input type="text" name="resultado_km" class="form-control" disabled>        
+</div>
+</form>  
+</div>
+<hr>        
+<!-- Calculo QP -->
+<div class="col-sm-12">
+<form name="qp">
+    <p>
+        <b>Calculo do QP</b><br>
+        QP = KM x (Num. Pacientes x THE)     
+    </p>
+<div class="form-group">
+    <label for="km">KM:</label>
+    <input type="text" name="km" class="form-control" placeholder="Ex: 0.2683" required>
+</div>
+<div class="form-group">
+    <label for="num_pacientes">Numero de Pacientes:</label>
+    <input type="number" name="num_pacientes" class="form-control" placeholder="Ex: 10" required />
+</div>
+<div class="form-group">
+    <label for="the">THE:</label>
+    <input type="number" name="the" class="form-control" placeholder="Aba 'tabelas' possui as informações" required />
+</div>
+<button type="button" class="btn btn-primary btn-block" onclick="calculaqp()">Calcular</button>
+<div class="form-group mt-2">
+<label for="resultado_qp">Resultado:</label>
+    <input type="text" name="resultado_qp" class="form-control" disabled>
+</div>   
+</form>
+</div>
 </section>
-<section class="container-fluid">
+<hr>
+<section class="container">
+<div class="col-sm-12">
     <h4>Abreviações</h4>
-    <p>
-        KM: Constante de Marinho
-    </p>
-    <p>
-        QP: Quantidade de Pessoal
-    </p>
-    <p>
-        IST: Indíce de Segurança Técnica
-    </p>
-    <p>
-        THE: Total Horas de Enfermagem
-    </p>
+    <ul>
+        <li>KM: Constante de Marinho</li>
+        <li>QP: Quantidade de Pessoal</li>
+        <li>IST: Indíce de Segurança Técnica</li>
+        <li>THE: Total Horas de Enfermagem</li>
+    </ul>
+</div>
 </section>
 <script>
 // Calculos
@@ -92,7 +119,7 @@ function calculakm(){
     total = (dias_semana / chs) * (1 + ist/100);
     arredondado = parseFloat(total.toFixed(4));
 
-    document.km.resultado_km.value = "O resultado é "+ arredondado + "!";
+    document.km.resultado_km.value = "" + arredondado;
     document.qp.km.value = "" + arredondado;
 }
 
@@ -109,7 +136,7 @@ function calculaqp(){
     total = km * (num_pacientes * the);
     arredondado = parseFloat(total.toFixed(4));
     
-    document.qp.resultado_qp.value = "O resultado é "+ arredondado + "!"
+    document.qp.resultado_qp.value = "" + arredondado;
     
 }
 </script>
