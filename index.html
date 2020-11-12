@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS import -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.css">
+    <!-- Bootstrap JS import -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.js"></script>
+
+    <title>Rapido Dimensionamento de Pessoal de Enfermagem</title>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Dimensionamento de Pessoal de Enfermagem</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggle">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="#">Calculos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="tabelas.html">Tabelas</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>        
+<section class="container-fluid">
+    <h4>Calculos (Use ponto (.) no lugar de virgula (,) </h4>
+    <hr>
+        <form name="km">
+        <b>KM</b>: (
+        <input type="text" name="dias_semana" placeholder="Dias da semana" required/> /
+        <input type="text" name="chs" placeholder="Carga Horaria Semanal" required/>
+        ) X (
+        1 +
+        <input type="text" name="ist" placeholder="IST" required/> %
+        )
+        <button type="button" class="btn btn-primary" onclick="calculakm()">Calcular</button>
+        <input type="text" name="resultado_km" disabled>
+        </form>
+        
+        <hr>
+        
+        <form name="qp">
+        <b>QP</b>: 
+        <input type="text" name="km" placeholder="KM" required> X
+        (
+        <input type="text" name="num_pacientes" placeholder="Num de Pacientes" required />
+        X
+        <input type="text" name="the" placeholder="THE" required />
+        )
+        <button type="button" class="btn btn-primary" onclick="calculaqp()">Calcular</button>
+        <input type="text" name="resultado_qp" disabled>
+    </form>
+    <hr>
+</section>
+<section class="container-fluid">
+    <h4>Abreviações</h4>
+    <p>
+        KM: Constante de Marinho
+    </p>
+    <p>
+        QP: Quantidade de Pessoal
+    </p>
+    <p>
+        IST: Indíce de Segurança Técnica
+    </p>
+    <p>
+        THE: Total Horas de Enfermagem
+    </p>
+</section>
+<script>
+// Calculos
+function calculakm(){
+    var dias_semana;
+    var chs;
+    var ist;
+    var total;
+    var arredondado;
+
+    dias_semana = parseFloat(document.km.dias_semana.value);
+    chs = parseFloat(document.km.chs.value);
+    ist = parseFloat(document.km.ist.value);    
+
+    total = (dias_semana / chs) * (1 + ist/100);
+    arredondado = parseFloat(total.toFixed(4));
+
+    document.km.resultado_km.value = "O resultado é "+ arredondado + "!";
+    document.qp.km.value = "" + arredondado;
+}
+
+function calculaqp(){
+    var km;
+    var num_pacientes;
+    var the;
+    var total;
+
+    km = parseFloat(document.qp.km.value);
+    num_pacientes = parseFloat(document.qp.num_pacientes.value);
+    the = parseFloat(document.qp.the.value);
+
+    total = km * (num_pacientes * the);
+    arredondado = parseFloat(total.toFixed(4));
+    
+    document.qp.resultado_qp.value = "O resultado é "+ arredondado + "!"
+    
+}
+</script>
+</body>
+</html>
