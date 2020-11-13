@@ -32,9 +32,9 @@
     </nav>
 </header>        
 <section class="container mt-2" >
-<div class="col-sm-12" style="text-align: center">
+    <div class="col-sm-12" style="text-align: center">
     <h5 >Calculos</h5>
-     <i>(Use ponto (.) no lugar de virgula (,)</i>
+     <i>Use ponto (.) no lugar de virgula (,)</i>
 </div>
 <hr>
 <div class="col-sm-12">
@@ -42,7 +42,7 @@
 <form name="km">
 <p>
     <b>Calculo do KM</b><br>
-    KM = (Dias da semana / Carga Horárias) x (1 + IST)     
+    KM = (Dias da semana / Carga Horária) x (1 + IST)     
 </p>
 <div class="form-group">
     <label for="dias_semana">Dias da semana: </label>
@@ -81,8 +81,14 @@
 </div>
 <div class="form-group">
     <label for="the">THE:</label>
-    <input type="number" name="the" class="form-control" placeholder="Aba 'tabelas' possui as informações" required />
-</div>
+    <select class="form-control" name="the" id="the">
+      <option value="4">Cuidado mínimo (4hrs)</option>
+      <option value="6">Cuidado intermediário (6hrs)</option>
+      <option value="10">Cuidado de alta dependência (10hrs)</option>
+      <option value="10">Cuidado semi-intensivo (10hrs)</option>
+      <option value="18">Cuidado intensivo (18hrs)</option>
+    </select>
+  </div>
 <button type="button" class="btn btn-primary btn-block" onclick="calculaqp()">Calcular</button>
 <div class="form-group mt-2">
 <label for="resultado_qp">Resultado:</label>
@@ -115,7 +121,7 @@ function calculakm(){
     dias_semana = parseFloat(document.km.dias_semana.value);
     chs = parseFloat(document.km.chs.value);
     ist = parseFloat(document.km.ist.value);    
-
+    
     total = (dias_semana / chs) * (1 + ist/100);
     arredondado = parseFloat(total.toFixed(4));
 
@@ -131,7 +137,9 @@ function calculaqp(){
 
     km = parseFloat(document.qp.km.value);
     num_pacientes = parseFloat(document.qp.num_pacientes.value);
-    the = parseFloat(document.qp.the.value);
+    the = document.getElementById('the').value;
+
+    console.log(the);
 
     total = km * (num_pacientes * the);
     arredondado = parseFloat(total.toFixed(4));
