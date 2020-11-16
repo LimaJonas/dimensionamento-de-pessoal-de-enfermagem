@@ -46,20 +46,20 @@
 </p>
 <div class="form-group">
     <label for="dias_semana">Dias da semana: </label>
-    <input type="number" name="dias_semana" class="form-control" placeholder="Ex: 7" required/>
+    <input type="number" name="txt_dias_semana" class="form-control" placeholder="Ex: 7" required/>
 </div>
 <div class="form-group">
     <label for="chs">Carga Horária Semanal: </label>
-    <input type="number" name="chs" class="form-control" placeholder="Ex: 30" required/>
+    <input type="number" name="txt_chs" class="form-control" placeholder="Ex: 30" required/>
 </div>
 <div class="form-group">
     <label for="ist">IST(%): </label>
-    <input type="number" name="ist" class="form-control" placeholder="Ex: 15" required/>
+    <input type="number" name="txt_ist" class="form-control" placeholder="Ex: 15" required/>
 </div>
     <button type="button" class="btn btn-primary btn-block h-100" onclick="calculakm()">Calcular</button>
 <div class="form-group mt-2">
     <label for="resultado_km">Resultado:</label>
-    <input type="text" name="resultado_km" class="form-control" disabled>        
+    <input type="text" name="txt_resultado_km" class="form-control" disabled>        
 </div>
 </form>  
 </div>
@@ -73,15 +73,15 @@
     </p>
 <div class="form-group">
     <label for="km">KM:</label>
-    <input type="text" name="km" class="form-control" placeholder="Ex: 0.2683" required>
+    <input type="text" name="txt_km" class="form-control" placeholder="Ex: 0.2683" required>
 </div>
 <div class="form-group">
     <label for="num_pacientes">Numero de Pacientes:</label>
-    <input type="number" name="num_pacientes" class="form-control" placeholder="Ex: 10" required />
+    <input type="number" name="txt_num_pacientes" class="form-control" placeholder="Ex: 10" required />
 </div>
 <div class="form-group">
     <label for="the">THE:</label>
-    <select class="form-control" name="the" id="the">
+    <select class="form-control" name="op_the" id="op_the">
       <option value="4">Cuidado mínimo (4hrs)</option>
       <option value="6">Cuidado intermediário (6hrs)</option>
       <option value="10">Cuidado de alta dependência (10hrs)</option>
@@ -91,10 +91,20 @@
   </div>
 <button type="button" class="btn btn-primary btn-block" onclick="calculaqp()">Calcular</button>
 <div class="form-group mt-2">
-<label for="resultado_qp">Resultado:</label>
-    <input type="text" name="resultado_qp" class="form-control" disabled>
+    <label for="resultado_qp">Resultado:</label>
+    <input type="text" name="txt_resultadoqp" class="form-control" disabled>
 </div>   
 </form>
+</div>
+<hr>
+<div class="col-sm-12">
+    <h4>Somatório de Pessoas</h4>
+    <form name="total">
+    <div class="form-group mt-2">
+        <input type="text" name="txt_total_pessoas" class="form-control" value="0" disabled> 
+    </div>   
+    <button type="button" class="btn btn-warning btn-block" onclick="limparTotal()">Limpar</button>
+    </form>
 </div>
 <hr>
 <div class="col-sm-12">
@@ -110,40 +120,37 @@
 <script>
 // Calculos
 function calculakm(){
-    var dias_semana;
-    var chs;
-    var ist;
+    var dias_semana = parseFloat(document.km.txt_dias_semana.value);
+    var chs = parseFloat(document.km.txt_chs.value);;
+    var ist = parseFloat(document.km.txt_ist.value);    ;
     var total;
     var arredondado;
-
-    dias_semana = parseFloat(document.km.dias_semana.value);
-    chs = parseFloat(document.km.chs.value);
-    ist = parseFloat(document.km.ist.value);    
     
     total = (dias_semana / chs) * (1 + ist/100);
     arredondado = parseFloat(total.toFixed(4));
 
-    document.km.resultado_km.value = "" + arredondado;
-    document.qp.km.value = "" + arredondado;
+    document.km.txt_resultado_km.value = "" + arredondado;
+    document.qp.txt_km.value = "" + arredondado;
 }
 
 function calculaqp(){
-    var km;
-    var num_pacientes;
-    var the;
+    var km = parseFloat(document.qp.txt_km.value);;
+    var num_pacientes = parseFloat(document.qp.txt_num_pacientes.value);
+    var the = document.getElementById('op_the').value;
     var total;
-
-    km = parseFloat(document.qp.km.value);
-    num_pacientes = parseFloat(document.qp.num_pacientes.value);
-    the = document.getElementById('the').value;
-
-    console.log(the);
+    var total_pessoas_parcial = parseFloat(document.total.txt_total_pessoas.value);
 
     total = km * (num_pacientes * the);
-    arredondado = parseFloat(total.toFixed(4));
+    arredondado = parseFloat(total.toFixed(4)); 
+
+    document.qp.txt_resultadoqp.value = arredondado;
     
-    document.qp.resultado_qp.value = "" + arredondado;
+    document.total.txt_total_pessoas.value = total_pessoas_parcial + arredondado;
     
+}
+
+function limparTotal(){
+    document.total.txt_total_pessoas.value = 0;
 }
 </script>
 </body>
