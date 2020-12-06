@@ -10,25 +10,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.js"></script>
 
+    <!-- Calculo -->
+    <script src="js/calculo.js"></script> 
     <title>Rápido Dimensionamento de Pessoal de Enfermagem</title>
 </head>
 <body>
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">RDPE</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarToggle">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="#">Calculos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="tabelas.html">Tabelas</a>
-                </li>
-            </ul>
-        </div>
     </nav>
 </header>        
 <section class="container mt-2" >
@@ -117,41 +106,15 @@
     </ul>
 </div>
 </section>
-<script>
-// Calculos
-function calculakm(){
-    var dias_semana = parseFloat(document.km.txt_dias_semana.value);
-    var chs = parseFloat(document.km.txt_chs.value);;
-    var ist = parseFloat(document.km.txt_ist.value);    ;
-    var total;
-    var arredondado;
-    
-    total = (dias_semana / chs) * (1 + ist/100);
-    arredondado = parseFloat(total.toFixed(4));
 
-    document.km.txt_resultado_km.value = "" + arredondado;
-    document.qp.txt_km.value = "" + arredondado;
-}
+<footer class="page-footer font-small bg-dark">
+<!-- Copyright -->
+<div class="footer-copyright text-center text-light py-3">
+    v1.0.7 © Copyright
+    <a href="https://github.com/LimaJonas" style="color: white" target="no_blank"> <u>Jonas Lima</u></a>
+</div>
+<!-- Copyright -->  
+</footer>
 
-function calculaqp(){
-    var km = parseFloat(document.qp.txt_km.value);;
-    var num_pacientes = parseFloat(document.qp.txt_num_pacientes.value);
-    var the = document.getElementById('op_the').value;
-    var total;
-    var total_pessoas_parcial = parseFloat(document.total.txt_total_pessoas.value);
-
-    total = km * (num_pacientes * the);
-    arredondado = parseFloat(total.toFixed(4)); 
-
-    document.qp.txt_resultadoqp.value = arredondado;
-    
-    document.total.txt_total_pessoas.value = total_pessoas_parcial + arredondado;
-    
-}
-
-function limparTotal(){
-    document.total.txt_total_pessoas.value = 0;
-}
-</script>
 </body>
 </html>
